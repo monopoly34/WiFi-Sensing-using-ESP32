@@ -23,12 +23,12 @@ void setup()
 {
     Serial.begin(BAUDRATE); // initialize the Serial Monitor to view debug messages
 
-    WiFi.mode(WIFI_AP); // set the WiFi mode to Access Point(AP) only
+    WiFi.mode(WIFI_AP);     // set the WiFi mode to Access Point(AP) only
 
     WiFi.softAPConfig(local_ip, gateway, subnet);                     // apply the custom IP settings
     WiFi.softAP(ssid, password, channel, hide_ssid, max_connections); // start the AP with our defined settings
 
-    esp_wifi_set_ps(WIFI_PS_NONE); // disble WiFi Power Saving Mode
+    esp_wifi_set_ps(WIFI_PS_NONE); // disable WiFi Power Saving Mode to ensure stable, low-latency transmission for CSI
 
     /* get and print the IP Address to the Serial Monitor for verification
     IPAddress IP = WiFi.softAPIP();
@@ -39,7 +39,7 @@ void setup()
 void loop()
 {
     udp.beginPacket(address, port); // begin constructing a UDP packet for the broadcast address
-    udp.print("ADA_IS_SILLY");      // add the payload to the packet
+    udp.print("ADA_IS_SILLY");      // add the payload (content doesn't matter)
     udp.endPacket();                // finalize and send the packet
-    delay(15);                      // wait for 15ms before sending another packet
+    delay(15);                      // wait for 15ms before sending another packet (controls the sampling rate, approximately ~66 packets per second)
 }
