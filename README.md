@@ -43,11 +43,13 @@ This project consists of two main components:
 WiFi Sensing using ESP32
 ┣ 📂 WS_RX
 ┃ ┣ 📂 src
-┃ ┃ ┗ main.cpp      # source code for RX
+┃ ┃ ┣ main.cpp      # source code for RX
+┃ ┃ ┗ README.md     # short documentation for RX
 ┃ ┗ platformio.ini  # configuration file for RX
 ┣ 📂 WS_TX
 ┃ ┣ 📂 src
-┃ ┃ ┗ main.cpp      # source code for TX
+┃ ┃ ┣ main.cpp      # source code for TX
+┃ ┃ ┗ README.md     # short documentation for TX
 ┃ ┗ platformio.ini  # configuration file for TX
 ┣ csi_dataset.csv                    # raw dataset
 ┣ filtered_csi_dataset.csv           # filtered dataset
