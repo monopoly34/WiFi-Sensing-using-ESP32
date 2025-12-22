@@ -18,9 +18,9 @@ This project consists of two main components:
   - **2x ESP32 microcontrollers** (for now, will add more in the future):
     * one acts as the **Transmitter (TX)** (router simulation).
     * one acts as the **Receiver (RX)** (CSI collector).
-  - **external battery** to power the TX microcontroller remotely.
+  - **external battery** to power the **TX** microcontroller remotely.
   - **laptop/desktop computer** for data logging, model training, and running the real-time Python script.
-  - **cables** to connect your device to the microcontrollers, thus giving you the ability to upload code on them
+  - **Micro_USB cables** to connect your desired device to the microcontrollers, thus giving you the ability to upload code on them.
 
 ## Software and other tools used in this project:
   - **Visual Studio Code**
@@ -34,9 +34,9 @@ This project consists of two main components:
     * **time**
     * **csv**
     * **re**
-  - **PlatformIO IDE VSCode extension** for flashing ESP32 firmware
-  - **Jupyter Notebooks VSCode extension** for data analysis
-  - **Drivers for the ESP32** so it can be detected when connecting to a port
+  - **PlatformIO IDE VSCode extension** for flashing ESP32 firmware.
+  - **Jupyter Notebooks VSCode extension** for data analysis.
+  - **Drivers for the ESP32** so it can be detected when connecting to a port.
 
 ## Project structure
 ```text
@@ -56,7 +56,7 @@ WiFi Sensing using ESP32
 ```
 
 ## Results (as of 12.22.2025)
-The model has been trained on varying environmental states and performes quite well for its reduced complexity, with an accuracy of **~98%** in **offline** testing and an accuracy of **~91%** in **real-time** testing
+The model has been trained on varying environmental states and performes quite well for its reduced complexity, with an accuracy of **~98%** in **offline** testing and an accuracy of **~91%** in **real-time** testing.
 
 ## How to use
   1. Flash the `WS_TX` code to one ESP32 and `WS_RX` to the other using PlatformIO.
@@ -71,6 +71,6 @@ The model has been trained on varying environmental states and performes quite w
   - [ ] implement Deep Learning models (LSTM/CNN) for gesture recognition.
   - [ ] add more ESP32 receivers to create a mesh sensing network.
 
-### Thanks to every Stackoverflow thread, Github repository, Youtube tutorial and article on Google that helped me learn and make this project
+### Thanks to every Stackoverflow thread, Github repository, Youtube tutorial and article on Google that helped me learn and make this project!
 ------
 *Project by [monopoly34]*
