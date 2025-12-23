@@ -7,9 +7,9 @@ To understand the code, we first have to get a grasp of the physical phenomena i
 The ESP32 radio operates at approximately **2.4 GHz**, which corresponds to a wavelength ($\lambda$) of about **12.5 cm**. When the TX emits a packet, it generates an electromagnetic field that propagates through the environment.
 
 $$\lambda = \frac{c}{f}$$
- - **$\lambda$ (lambda)** = wavelength (0.125m)
+ - **$\lambda$ (lambda)** = wavelength (0.125 m)
  - **c** = speed of light (roughly 300,000,000 $$\frac{m}{s}$$)
- - **f** = frequency (2,400,000,000Hz)
+ - **f** = frequency (2,400,000,000 Hz)
 
 Unlike a laser, WiFi is **omnidirectional** (it transmits signals in all directions). The signal travels from the TX to the receiver (RX) via multiple pathways:
  - **Line of Sight (LoS):** the direct path between antennas (if unobstructed).
@@ -64,4 +64,4 @@ delay(15);                      // wait for 15ms before sending another packet (
 **Timing & sampling rate**: 
  * the `delay(15)` command, combined with the code execution time, results in a packet interval of approximately **15-16ms**. This translates to a sampling frequency of **~66Hz**.
 
-> **Nyquist-Shannon Theorem**: the Nyquist Theorem is a fundamental rule in digital signal processing stating that to perfectly reconstruct a continuous signal, you must sample it at a rate **greater than twice the highest frequency present in the signal**, also known as Nyquist rate. Hence, with a sampling rate of approximately 66Hz, we can theoretically detect physical movements occurring at frequencies up to 33Hz. Since human motion (walking, breathing, standing, etc.) is less than **5Hz**, this resolution is more than sufficient for accurate detection.
+> **Nyquist-Shannon Theorem**: the Nyquist Theorem is a fundamental rule in digital signal processing stating that to perfectly reconstruct a continuous signal, you must sample it at a rate **greater than twice the highest frequency present in the signal**, also known as Nyquist rate. Hence, with a sampling rate of approximately 66 Hz, we can theoretically detect physical movements occurring at frequencies up to 33 Hz. Since human motion (walking, breathing, standing, etc.) is usually less than **5 Hz**, this resolution is more than sufficient for accurate detection.
