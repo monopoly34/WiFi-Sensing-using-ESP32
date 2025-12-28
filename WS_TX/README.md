@@ -1,4 +1,4 @@
-# Transmitter (TX) - short documentation
+# ESP32 transmitter firmware: WiFi sensing beacon 
 
 ## 1. Theoretical foundation: The basic physics of WiFi Sensing
 To understand the code, we first have to get a grasp of the physical phenomena it exploits. In this architecture, the transmitter (TX) acts as a **Radio Frequency (RF) Illuminator**.
@@ -6,16 +6,14 @@ To understand the code, we first have to get a grasp of the physical phenomena i
 ### 1.1 Electromagnetic wave propagation
 The ESP32 radio operates at approximately **2.4 GHz**, which corresponds to a wavelength ($\lambda$) of about **12.5 cm**. When the TX emits a packet, it generates an electromagnetic field that propagates through the environment.
 
-```text
-    ($\lambda$) = c / f
-    ($\lambda$) (lambda) = wavelength (0.125 meters)
-    c = speed of light (roughly 300,000,000 m/s)
-    f = frequency (2,400,000,000 Hz)
-```
+$$\lambda = \frac{c}{f}$$
+ - **$\lambda$ (lambda)** = wavelength (0.125 m)
+ - **c** = speed of light (roughly 300,000,000 $$\frac{m}{s}$$)
+ - **f** = frequency (2,400,000,000 Hz)
 
 Unlike a laser, WiFi is **omnidirectional** (it transmits signals in all directions). The signal travels from the TX to the receiver (RX) via multiple pathways:
-    - **Line of Sight (LoS):** the direct path between antennas (if unobstructed).
-    - **Non-Line of Sight (NLoS):** paths created by reflections off walls, floor, furniture, etc.
+ - **Line of Sight (LoS):** the direct path between antennas (if unobstructed).
+ - **Non-Line of Sight (NLoS):** paths created by reflections off walls, floor, furniture, etc.
 
 ### 1.2 Multipath Interference and CSI
 This phenomenon is known as **Multipath propagation**, a wireless signal phenomenon where a transmitted signal reaches the receiver via **multiple paths (direct, reflected, scattered or refracted)**, hence the name, arriving at different times with varying strengths, causing **constructive/destructive interference**, signal fading and distortion. **Constructive interference** builds waves up, creating larger amplitude when wave peaks meet through in phase, increasing intensity, while **Destructive interference** cancels waves out, reducing amplitude when peaks meet trough out of phase, decreasing intensity.
@@ -30,8 +28,10 @@ The TX ESP32 is configured in **SoftAP (Software Access Point)** mode. It simula
 
 The firmware targets the IP address `192.168.4.255`. In IPv4, the suffix `.255` represents a **broadcast address**, a special IP address used to send data packets to **all** devices on a local network (LAN) simultaneously, without needing individual addresses, acting like an announcement to everyone nearby. In short, the TX sends packets to the entire subnet without establishing a TCP handshake. This is a better option because it removes the overhead of **acknowledgment packets (ACK)** (ACKs are crucial in networking for reliable data transfer, acting as confirmation signals from a receiver to a sender that data was successfully received, which we do not need in the purpose of this project).
 
+------
+
 ## 3. Firmware code analysis
-### 3.1 Core configuration ('setup')
+### 3.1 Core configuration (`setup`)
 The setup phase is critical for ensuring signal **stationarity**. If the TX radio fluctuates in power, the model will confuse hardware noise with human activity, thus giving a bad prediction.
 
 **Network initialization**: we force a static IP configuration to bypass the DHCP process, ensuring the TX is ready to transmit immediately upon boot. Additionally, by locking the WiFi channel, we ensure the **carrier frequency** remains constant, as CSI varies significantly between channels.
@@ -48,7 +48,7 @@ WiFi.softAP(ssid, password, channel, hide_ssid, max_connections);   // starts th
 esp_wifi_set_ps(WIFI_PS_NONE);  // disable WiFi Power Saving Mode to ensure stable, low-latency transmission for data
 ```
 
-### 3.2 The transmission loop ('loop')
+### 3.2 The transmission loop (`loop`)
 
 ```cpp
 udp.beginPacket(address, port); // begin constructing a UDP packet for the broadcast address
@@ -64,4 +64,4 @@ delay(15);                      // wait for 15ms before sending another packet (
 **Timing & sampling rate**: 
  * the `delay(15)` command, combined with the code execution time, results in a packet interval of approximately **15-16ms**. This translates to a sampling frequency of **~66Hz**.
 
-**Nyquist-Shannon Theorem**: the Nyquist Theorem is a fundamental rule in digital signal processing stating that to perfectly reconstruct a continuous signal, you must sample it at a rate **greater than twice the highest frequency present in the signal**, also known as Nyquist rate. Hence, with a sampling rate of approximately 66Hz, we can theoretically detect physical movements occurring at frequencies up to 33Hz. Since human motion (walking, breathing, standing, etc.) is generally < 5Hz, this resolution is more than sufficient for accurate detection.
+> **Nyquist-Shannon Theorem**: the Nyquist Theorem is a fundamental rule in digital signal processing stating that to perfectly reconstruct a continuous signal, you must sample it at a rate **greater than twice the highest frequency present in the signal**, also known as Nyquist rate. Hence, with a sampling rate of approximately 66 Hz, we can theoretically detect physical movements occurring at frequencies up to 33 Hz. Since human motion (walking, breathing, standing, etc.) is usually less than **5 Hz**, this resolution is more than sufficient for accurate detection.
