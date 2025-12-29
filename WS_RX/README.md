@@ -54,12 +54,13 @@ The air is full of WiFi signals from neighbors, and to prevent "poisoning" our d
 
 ```cpp
 const uint8_t TX_mac[6] = { ... }; // target MAC
-// ... inside the loop ...
+// inside the loop
 if (data->mac[i] !- TX_mac[i]) 
 {
   match = false; 
   break;
 }
+// ...
 ```
 
 **NOTE**: The variable `TX_mac` is hardcoded, you must replace the bytes with the actual MAC address of your TX. If it does not match, the RX will filter out everything.
