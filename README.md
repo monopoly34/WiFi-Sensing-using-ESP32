@@ -67,11 +67,13 @@ The model has been trained on varying environmental states and performes quite w
   4. Run either of the two scripts.
 
 ## Future improvements
-  - [ ] optimize the real-time detection model.
-  - [ ] fix the inaccuracy of the model when standing still in front of the RX.
-  - [x] implement Savitzky-Golay filter to reduce noise and smooth data
-  - [x] implement Principal Component Analysis (PCA) to reduce feature dimensionality.
-  - [ ] implement Deep Learning models (LSTM/CNN) for gesture recognition.
+  - [x] optimize the real-time detection model.
+  - [x] fix the inaccuracy of the model when standing still in front of the RX.
+  - [x] implement hysteresis logic to prevent output flickering.
+  - [x] implement Savitzky-Golay filter to reduce noise and smooth data.
+  - [x] implement principal component analysis (PCA) to reduce feature dimensionality.
+  - [x] implement auto-calibration logic to subtract static environment (furniture, objects, etc.) baseline.
+  - [ ] implement deep learning models (LSTM/CNN) for gesture recognition.
   - [ ] add more ESP32 receivers to create a mesh sensing network.
 
 ### Thanks to every Stackoverflow thread, Github repository, Youtube tutorial and article on Google that helped me learn and make this project!
