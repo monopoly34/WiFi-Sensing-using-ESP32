@@ -69,7 +69,8 @@ The model has been trained on varying environmental states and performes quite w
 ## Future improvements
   - [ ] optimize the real-time detection model.
   - [ ] fix the inaccuracy of the model when standing still in front of the RX.
-  - [ ] implement Principal Component Analysis (PCA) to reduce feature dimensionality.
+  - [x] implement Savitzky-Golay filter to reduce noise and smooth data
+  - [x] implement Principal Component Analysis (PCA) to reduce feature dimensionality.
   - [ ] implement Deep Learning models (LSTM/CNN) for gesture recognition.
   - [ ] add more ESP32 receivers to create a mesh sensing network.
 

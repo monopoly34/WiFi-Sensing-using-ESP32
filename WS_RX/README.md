@@ -12,9 +12,9 @@ While the transmitter (TX) acts as the **illuminator**, the receiver (RX) acts a
 To understand how the signal travels and interacts with a human body, we rely on two theoretical models:
   - **Ray-tracing model (multipath)**: in typical indoor environments, a signal sent by a transmitter arrives at the receiver via multiple paths due to the reflection of radio waves. Along each path, the signal experiences a certain **attenuation** (loss of strength) and **phase shift** (time delay). The received signal ($V$) is the **superposition** of multiple alias versions of the transmitted signal, expressed mathematically as:
      
-     $$V = \sum_{n = 1}^{N} \|V_n \| e^{-j\phi_n}$$
-    - $V_n$ and $\phi_n $ are the amplitude and the phase of the $n^{th}$ multipath component.
-    - $N$ is the total number of multipath components
+ $$V = \sum_{n = 1}^{N} \|V_n \| e^{-j\phi_n}$$
+  - $V_n$ and $\phi_n$ are the amplitude and the phase of the $n^{th}$ multipath component.
+  - $N$ is the total number of multipath components
   
   **Why using only RSSI fails**: a slight change in one specific path can result in significant constructive or destructive interference, leading to considerable fluctuations in the total RSSI even for a static link.
 
@@ -54,12 +54,13 @@ The air is full of WiFi signals from neighbors, and to prevent "poisoning" our d
 
 ```cpp
 const uint8_t TX_mac[6] = { ... }; // target MAC
-// ... inside the loop ...
+// inside the loop
 if (data->mac[i] !- TX_mac[i]) 
 {
   match = false; 
   break;
 }
+// ...
 ```
 
 **NOTE**: The variable `TX_mac` is hardcoded, you must replace the bytes with the actual MAC address of your TX. If it does not match, the RX will filter out everything.
